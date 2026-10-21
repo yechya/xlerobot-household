@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "name": "xlerobot-lerobot-jetson-integration",
+  "version": "0.1.0",
+  "generated_at": "2026-10-21",
+  "upstream": {
+    "repository": "https://github.com/huggingface/lerobot.git",
+    "base_commit": "1033680a5",
+    "license": "Apache-2.0"
+  },
+  "patch": {
+    "path": "patches/0001-xlerobot-jetson-integration.patch",
+    "sha256": "d0a24054045a161d632ec047f2804b964b2dd6df3ba3b4a84f5b14de1bfbd234",
+    "bytes": 456236,
+    "files_changed": 54
+  },
+  "excluded": [
+    "outputs/",
+    "datasets/",
+    "checkpoints/",
+    "*.safetensors",
+    "*.pt",
+    "*.onnx",
+    "*.engine",
+    "*.whl",
+    "thrid-party/",
+    "src/lerobot/robots/xlerobot (absolute symlink)"
+  ],
+  "verified_with": {
+    "l4t": "R36.4.7",
+    "cuda": "12.6",
+    "tensorrt": "10.3.0",
+    "python": "3.10.12",
+    "torch": "2.3.0",
+    "lerobot": "0.3.3"
+  }
+}

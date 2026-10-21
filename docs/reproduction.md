@@ -71,6 +71,13 @@ robotctl execute dock_table --real
 
 ## 5. 训练与 TensorRT
 
+先重建定制 LeRobot 工作区：
+
+```bash
+./integrations/lerobot_jetson/apply.sh /path/to/lerobot
+./integrations/lerobot_jetson/verify.sh
+```
+
 训练工作区、数据集与权重不在本仓库分发。当前流程：
 
 1. 遥操作采集 episode，检查相机映射与动作维度；
@@ -82,9 +89,9 @@ robotctl execute dock_table --real
 
 ## 6. 当前复现缺口
 
-- `lerobot_0.3.3_pzy`、`lerobot_ycy`、`XLeRobot` 是独立工作区，未随根仓库分发；完整复现需要
-  单独发布这些定制分支或补丁包。
-- 训练数据、checkpoint、engine、标定缓存未分发。
+- `lerobot_0.3.3_pzy` 已整理为 `integrations/lerobot_jetson/` 补丁（基线 `1033680a5`）；
+  π0.5 已整理为 `integrations/lerobot_pi05/` 补丁（基线 `473f1bd0e`）。两者需应用到独立 checkout。
+- `XLeRobot` 与训练数据、checkpoint、engine、标定缓存仍需单独获取。
 - 没有真实硬件的自动化 HIL；CI 只覆盖主机侧逻辑。
 - 尚未发布按任务统计的成功率与置信区间；在补齐前，不应引用具体性能数字。
 

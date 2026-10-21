@@ -37,8 +37,10 @@
 
 ## 可复现性
 
-- **外部工作区未随本仓库分发**：`lerobot_0.3.3_pzy`、`lerobot_ycy`、`XLeRobot` 当前是独立工作区，
-  根仓库的 `.gitignore` 不包含它们。完整复现需要单独发布这些定制分支或提供补丁包。
+- **LeRobot 定制已提供补丁，不是完整 fork**：`lerobot_0.3.3_pzy` 的改动整理在
+  `integrations/lerobot_jetson/`（上游 `1033680a5`）；π0.5 改动整理在
+  `integrations/lerobot_pi05/`（上游 `473f1bd0e`）。均不含权重、数据、engine 或旧历史。
+- **XLeRobot 仍为外部依赖**：硬件 3D 打印件、仿真资产与部分 host 驱动需按需克隆上游仓库。
 - **权重与数据集未分发**：仓库不包含训练数据、checkpoint、TensorRT engine 或标定缓存。
 - **Jetson 版本敏感**：TensorRT engine 与 L4T/CUDA/TensorRT 版本绑定；换版本需要重新导出与编译。
 - **无端到端 CI 硬件测试**：CI 只运行主机侧单元/集成测试；没有真实机械臂、相机或 Jetson 的自动化 HIL。

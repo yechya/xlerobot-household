@@ -61,10 +61,12 @@ git bundle create /secure/offline/xlerobot-private-history.bundle --all
 
 ## 外部工作区
 
-`lerobot_0.3.3_pzy`、`lerobot_ycy`、`XLeRobot` 不适合直接作为本仓库的子目录发布：
+`lerobot_0.3.3_pzy` 与 `lerobot_ycy` 的定制已抽取为 `integrations/lerobot_jetson/` 和
+`integrations/lerobot_pi05/` 补丁，可随本仓库发布。`XLeRobot` 是上游硬件参考，不建议直接
+vendoring：
 
-- 它们各自有独立历史、上游 remote 和数十 GB 输出；
-- 直接推完整 fork 会带入旧的大文件与私有配置；
-- 推荐发布为独立仓库，或抽出 `patches/` + 自定义脚本 + 修改过的 `src/lerobot` 文件。
+- 它有独立历史、上游 remote 与较大的仿真/3D 资产；
+- 直接复制会带入上游历史与重复资产；
+- 推荐按需克隆，或只发布与你们硬件改动相关的差异。
 
 在外部工作区发布前，同样执行第 2–4 项扫描，并补齐 `NOTICE` 与上游许可证声明。

@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "name": "xlerobot-lerobot-pi05-jetson-integration",
+  "version": "0.1.0",
+  "generated_at": "2026-10-21",
+  "upstream": {
+    "repository": "https://github.com/huggingface/lerobot.git",
+    "base_commit": "473f1bd0e",
+    "license": "Apache-2.0"
+  },
+  "patch": {
+    "path": "patches/0001-pi05-jetson-integration.patch",
+    "sha256": "6082465504095254507a836ffa3801b376b3b97d13fab2f37babfaac943892bb",
+    "bytes": 223740,
+    "files_changed": 41
+  },
+  "excluded": [
+    "outputs/",
+    "datasets/",
+    "checkpoints/",
+    "*.safetensors",
+    "*.pt",
+    "*.onnx",
+    "*.engine",
+    "*.whl",
+    "thrid-party/",
+    "xone/",
+    "examples/",
+    "CLAUDE.md",
+    "scripts/TRT_PI05_INTEGRATION_PROGRESS.md"
+  ],
+  "verified_with": {
+    "l4t": "R36.4.7",
+    "cuda": "12.6",
+    "tensorrt": "10.3.0",
+    "runtime_environment": "see docs/environment.md; pi05 workspace may use a different Python environment"
+  }
+}

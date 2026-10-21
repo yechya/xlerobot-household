@@ -78,6 +78,7 @@ graph TD
 ├── lerobot_0.3.3_pzy/   # [外部工作区] SmolVLA 端侧 TensorRT 推理与实机双臂驱动（不在本仓库）
 ├── lerobot_ycy/         # [外部工作区] π0.5 (pi05) 的 TensorRT 导出与量化（不在本仓库）
 ├── XLeRobot/            # [外部参考] 官方硬件 3D 打印件与仿真资产（不在本仓库）
+├── integrations/        # LeRobot Jetson / π0.5 集成补丁（可审阅、无权重/大文件）
 ├── docs/                # 系统文档库
 │   ├── hardware_bom.md  # 详细硬件物料清单 (BOM)、传感器规格与接线指南
 │   └── history/         # 历史设计演进与开发日志
@@ -167,6 +168,8 @@ python -m robot_agent.webui --port 8080
 
 - **[模型权重范围 (docs/model-weights.md)](docs/model-weights.md)**：权重复用边界、过拟合风险与重新训练流程。
 - **[复现指南 (docs/reproduction.md)](docs/reproduction.md)**：从零安装、dry-run、硬件闭环与训练/TRT 流程。
+- **[LeRobot Jetson 集成补丁 (integrations/lerobot_jetson)](integrations/lerobot_jetson/README.md)**：基于上游 `1033680a5` 的可审阅补丁与验证脚本。
+- **[π0.5 Jetson 集成补丁 (integrations/lerobot_pi05)](integrations/lerobot_pi05/README.md)**：基于上游 `473f1bd0e` 的 π0.5 TensorRT 补丁。
 - **[已验证环境 (docs/environment.md)](docs/environment.md)**：JetPack、CUDA、TensorRT、PyTorch 实测版本矩阵。
 - **[已知边界 (docs/known-limitations.md)](docs/known-limitations.md)**：未实现能力、安全边界与复现缺口。
 - **[安全策略 (SECURITY.md)](SECURITY.md)**：漏洞报告、威胁模型与密钥卫生。
