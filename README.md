@@ -172,6 +172,9 @@ python -m robot_agent.webui --port 8080
 - **[π0.5 Jetson 集成补丁 (integrations/lerobot_pi05)](integrations/lerobot_pi05/README.md)**：基于上游 `473f1bd0e` 的 π0.5 TensorRT 补丁。
 - **[已验证环境 (docs/environment.md)](docs/environment.md)**：JetPack、CUDA、TensorRT、PyTorch 实测版本矩阵。
 - **[已知边界 (docs/known-limitations.md)](docs/known-limitations.md)**：未实现能力、安全边界与复现缺口。
+- **[评测协议 (docs/benchmarking.md)](docs/benchmarking.md)**：成功率、Wilson 区间、失败分类与报告模板。
+- **[HIL 与急停证据 (docs/hil-evidence.md)](docs/hil-evidence.md)**：真实硬件安全验收场景与记录格式。
+- **[隐私与数据流 (docs/privacy.md)](docs/privacy.md)**：相机快照、VLM 端点、留存与脱敏要求。
 - **[安全策略 (SECURITY.md)](SECURITY.md)**：漏洞报告、威胁模型与密钥卫生。
 - **[发布流程 (docs/publishing.md)](docs/publishing.md)**：干净历史、发布前扫描与外部工作区策略。
 - **[贡献指南 (CONTRIBUTING.md)](CONTRIBUTING.md)**：开发、测试、安全不变量与提交规范。
