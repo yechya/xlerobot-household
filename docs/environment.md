@@ -28,6 +28,8 @@ TensorRT 版本后必须重新验证，不能假定二进制兼容。
 
 - PyTorch 为 CUDA 12.4 构建，运行在 CUDA 12.6 驱动上；不要混用其他 JetPack 版本的 wheel。
 - `torch_wheels/` 与 TensorRT engine 不进入 git；需按本机 JetPack 版本自行准备或从 release 获取。
+- 精确环境锁见 [integrations/lerobot_jetson/locks](../integrations/lerobot_jetson/locks/README.md)；
+  锁为 linux-aarch64，换 JetPack 后必须重新生成。
 - TensorRT 10 与 conda 环境可能需要 `LD_PRELOAD=/usr/lib/aarch64-linux-gnu/libnvinfer.so.10`；
   `lerobot_0.3.3_pzy/envs.sh` 已按存在性条件加载。
 - `trtexec` 路径：`/usr/src/tensorrt/bin/trtexec`。

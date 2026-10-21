@@ -51,8 +51,9 @@ git apply /path/to/0001-xlerobot-jetson-integration.patch
 ## 安装
 
 1. 按 [已验证环境](../../docs/environment.md) 准备 JetPack、CUDA、TensorRT 与 Python。
-2. 准备与 JetPack 匹配的 PyTorch/TorchVision wheel，安装后执行 `pip install -e .`。
-3. 复制环境模板并填写本机配置：
+2. 可选：使用 `locks/` 中的精确环境锁（linux-aarch64，随 JetPack 变化，不要跨平台复用）。
+3. 准备与 JetPack 匹配的 PyTorch/TorchVision wheel，安装后执行 `pip install -e .`。
+4. 复制环境模板并填写本机配置：
 
 ```bash
 cp /path/to/xlerobot-repo/.env.example .env
