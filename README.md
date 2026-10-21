@@ -170,6 +170,7 @@ python -m robot_agent.webui --port 8080
 - **[已验证环境 (docs/environment.md)](docs/environment.md)**：JetPack、CUDA、TensorRT、PyTorch 实测版本矩阵。
 - **[已知边界 (docs/known-limitations.md)](docs/known-limitations.md)**：未实现能力、安全边界与复现缺口。
 - **[安全策略 (SECURITY.md)](SECURITY.md)**：漏洞报告、威胁模型与密钥卫生。
+- **[发布流程 (docs/publishing.md)](docs/publishing.md)**：干净历史、发布前扫描与外部工作区策略。
 - **[贡献指南 (CONTRIBUTING.md)](CONTRIBUTING.md)**：开发、测试、安全不变量与提交规范。
 - **[硬件清单与电气接线 (docs/hardware_bom.md)](docs/hardware_bom.md)**：物料 BOM、舵机与相机 Udev 规则。
 - **[RGB 桌沿对接 (robot-agent/docs/table-docking.md)](robot-agent/docs/table-docking.md)**：闭环视觉底盘对接与失效保护。
