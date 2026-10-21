@@ -1,0 +1,40 @@
+name: Feature request
+description: Propose a capability with explicit hardware, safety, and evidence requirements
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What task or failure mode is not handled today?
+    validations:
+      required: true
+  - type: textarea
+    id: hardware
+    attributes:
+      label: Required hardware and calibration
+      description: Sensors, actuators, calibration, runtime assets, and fallback behavior.
+    validations:
+      required: true
+  - type: textarea
+    id: safety
+    attributes:
+      label: Safety and failure behavior
+      description: What happens on observation loss, backend failure, timeout, stop, and estop?
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Acceptance evidence
+      description: Pre/postconditions, benchmark plan, sample size, and failure taxonomy.
+    validations:
+      required: true
+  - type: checkboxes
+    id: scope
+    attributes:
+      label: Scope check
+      options:
+        - label: The capability does not assume depth, LiDAR, force, or tactile sensing without evidence.
+        - label: The capability can fail closed without inventing observations or coordinates.
+        - label: Model weights and datasets will not be committed to this repository.

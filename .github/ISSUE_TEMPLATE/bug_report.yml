@@ -1,0 +1,57 @@
+name: Bug report
+description: Report a reproducible defect in the framework or documentation
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Do not include tokens, WiFi credentials, private IPs, camera images of people, or dataset samples.
+        For security issues use the private advisory flow in SECURITY.md.
+  - type: input
+    id: commit
+    attributes:
+      label: Commit
+      description: Output of `git rev-parse --short HEAD`
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - robot-agent runtime
+        - missions / recovery
+        - table docking
+        - LeRobot Jetson patch
+        - pi0.5 patch
+        - documentation
+        - other
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Reproduction
+      description: Exact commands or steps, including whether hardware was connected.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+      description: Include the error and relevant audit/episode paths, with secrets removed.
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Paste `PYTHON=... bash scripts/capture_environment.sh` output.
+    validations:
+      required: true
