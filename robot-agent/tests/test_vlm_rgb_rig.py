@@ -199,3 +199,15 @@ def test_vlm_client_requires_explicit_endpoint_model_and_token(monkeypatch):
     monkeypatch.setenv("VLM_MODEL", "local-model")
     with pytest.raises(RuntimeError, match="VLM_API_TOKEN"):
         VLMClient()._post_chat([], 1)
+
+
+def test_vlm_max_tokens_is_configurable(monkeypatch):
+    monkeypatch.setenv("VLM_MAX_TOKENS", "8192")
+    assert VLMClient(api_token="token").max_tokens == 8192
+
+
+@pytest.mark.parametrize("value", ["0", "255", "16385", "not-a-number"])
+def test_vlm_max_tokens_rejects_unsafe_values(monkeypatch, value):
+    monkeypatch.setenv("VLM_MAX_TOKENS", value)
+    with pytest.raises(ValueError, match="VLM_MAX_TOKENS"):
+        VLMClient(api_token="token")

@@ -223,6 +223,12 @@ class VLMClient:
         self.api_token = api_token or os.environ.get("VLM_API_TOKEN", "")
         self.model = os.environ.get("VLM_MODEL", "").strip()
         self.timeout = int(os.environ.get("VLM_TIMEOUT", "90"))
+        try:
+            self.max_tokens = int(os.environ.get("VLM_MAX_TOKENS", "2048"))
+        except ValueError as exc:
+            raise ValueError("VLM_MAX_TOKENS must be an integer") from exc
+        if not 256 <= self.max_tokens <= 16384:
+            raise ValueError("VLM_MAX_TOKENS must be in [256, 16384]")
         self.camera_snapshot_urls = snapshot_urls_from_env()
 
     def _post_chat(self, messages: list[dict], timeout: int) -> str:
@@ -237,7 +243,7 @@ class VLMClient:
             "model": self.model,
             "messages": messages,
             "temperature": 0.2,
-            "max_tokens": 2048,
+            "max_tokens": self.max_tokens,
         }
         request = urllib.request.Request(
             self.api_url,

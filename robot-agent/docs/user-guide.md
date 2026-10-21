@@ -248,6 +248,8 @@ export VLM_API_URL=https://your-vlm.example/v1/chat/completions
 export VLM_API_TOKEN='替换为实际令牌'
 export VLM_MODEL=your-vision-model
 export VLM_TIMEOUT=30
+# Reasoning 模型需调大，例如 DeepSeek 用 8192；非 reasoning 保持 2048
+export VLM_MAX_TOKENS=2048
 ```
 
 执行观察：
