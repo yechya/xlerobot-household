@@ -16,6 +16,38 @@
 | 物理急停 | 按下硬件急停 | 执行机构动力切断，软件状态进入 `ESTOP` |
 | 复位 | 物理急停释放后 `robotctl reset` | 仅在确认字符串匹配后恢复，旧 token 失效 |
 
+## 执行步骤
+
+### ROS 2 场景
+
+```bash
+robot-hil-record /data/hil/heartbeat_loss.jsonl \
+  --scenario-id heartbeat_loss --scenario heartbeat_loss
+# 注入对应故障（停止 heartbeat / kill 进程 / 断相机）
+robot-hil-evaluate /data/hil/heartbeat_loss.jsonl \
+  --policy config/hil-policy.example.yaml \
+  --output /data/hil/heartbeat_loss.report.json
+```
+
+对 `config/hil-policy.example.yaml` 的 `required_scenarios` 逐个执行：
+`heartbeat_loss`、`robotd_killed`、`nav2_killed`、`sensor_loss`。
+
+### 物理急停与断电
+
+这些场景不由 `robot-hil-record` 自动覆盖，需要人工记录：
+
+1. 机器人低速执行 `dock_table` 或一个已授权任务；
+2. 按下物理急停；
+3. 确认执行机构断电、软件进入 `ESTOP`、审计日志写入；
+4. 释放急停并执行 `robotctl reset --confirm "RESET ESTOP"`；
+5. 验证旧 token 已失效、需要重新观察和 arm；
+6. 保存视频、审计日志与 `episode` 清单，填写下方记录模板。
+
+### 记录归档
+
+把每个场景的 JSONL、报告、日志与视频哈希写入 `docs/hil-evidence.md` 的副本或独立
+`reports/hil-<date>.md`，并在 release 说明中链接。未执行的场景标记 `BLOCKED`，不要留空。
+
 ## 记录格式
 
 ```text

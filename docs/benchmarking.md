@@ -84,6 +84,108 @@ latency p50 / p95:
 raw episodes path + sha256:
 ```
 
+## 操作步骤
+
+### 0. 冻结部署与指纹
+
+先固定代码、权重、相机映射、桌面 profile 与标定，然后记录：
+
+```bash
+robotctl capabilities > capabilities.json
+python - <<'PY'
+import json
+c = json.load(open("capabilities.json"))
+for task_id, task in c["task_catalog"]["tasks"].items():
+    print(task_id, task["fingerprint"], task["executor"])
+print(json.dumps(c.get("policy_registry", {}), indent=2, ensure_ascii=False))
+PY
+```
+
+把任务 fingerprint 与 policy fingerprint 写入 benchmark spec 的 `task_fingerprint` 与
+`binding_equals.policy_fingerprint`。两者任一变化，旧 episode 不再计入新报告。
+
+### 1. 配置切片
+
+每个切片使用一个 episode context 文件，并重启 `robotd`（context 在启动时加载）：
+
+```bash
+export ROBOT_AGENT_EPISODE_DIR=/data/bench/fold_simple/episodes
+export ROBOT_AGENT_EPISODE_CONTEXT=/data/bench/fold_simple/bright-layout-a.yaml
+systemctl --user restart robotd
+```
+
+context 的 `tags` 必须覆盖 benchmark spec 的 `coverage` 键：
+
+```yaml
+version: 1
+deployment_id: lab-kitchen-1
+tags:
+  lighting: bright
+  layout: layout-a
+  object_variant: cloth-a
+```
+
+每个切片至少 10 个 episode；推荐每任务 30–50 个，先跑 pilot 再扩量。
+
+### 2. 采集
+
+每个 episode 走完整观察 → 授权 → 执行流程：
+
+```bash
+robotctl observe "确认桌面目标、人员和障碍物状态"
+robotctl arm fold_simple --confirm "CONFIRM fold_simple"
+robotctl execute fold_simple --real
+```
+
+执行结束后确认 manifest 写入 `ROBOT_AGENT_EPISODE_DIR`，并检查：
+
+- `success` 与 `failure_stage` 是否符合实际；
+- `human_intervention` 是否在 `stop` / `pause` / `estop` 后为 true；
+- `task_fingerprint` 与 `execution_binding` 是否与冻结值一致。
+
+### 3. 绑定原始证据
+
+为需要 benchmark 证据的任务建立 evidence spec（参考
+`config/episode-evidence.example.yaml`），然后绑定：
+
+```bash
+robot-episode-evidence index --episode /data/bench/.../episode-xxx.json \
+  --spec /data/bench/.../evidence.yaml
+robot-episode-evidence check --episodes /data/bench/.../episodes \
+  --require-kind rgb_video --require-kind robot_state
+```
+
+### 4. 评估
+
+```bash
+robot-benchmark-evaluate /data/bench/fold_simple/benchmark.yaml \
+  /data/bench/fold_simple/episodes \
+  --output /data/bench/fold_simple/report.json
+```
+
+报告会按 coverage 切片检查样本量、成功率、接管率与失败阶段比例。第一次运行建议使用
+“报告基线”门禁（较低阈值），确认统计口径后再提高到发布阈值。报告 JSON 与原始 manifest
+一起归档；不要只保留通过项。
+
+### 5. 发布
+
+在 `reports/`（或独立数据仓库）中提供：
+
+- 报告 JSON 与 SHA-256；
+- 每任务 n / 成功 / Wilson CI / 接管率 / 失败分类；
+- 原始 episode 目录的哈希清单（原始数据可因隐私不公开，但哈希与统计必须可核对）；
+- 失败样本的脱敏视频或截图；
+- 明确的限制：硬件、标定、光照、物体集合、权重指纹。
+
+## 推荐节奏
+
+| 阶段 | 工作量 | 目标 |
+|------|--------|------|
+| Pilot | 每任务 5–10 episode | 验证 manifest、失败分类、证据链 |
+| Baseline | 每任务 30–50 episode | 得到可报告的 CI 与失败分布 |
+| Release gate | 覆盖全部切片 | 设定并冻结发布阈值 |
+| Regression | 每次权重/相机/固件变更后重跑 | 防止性能回退 |
+
 ## 禁止事项
 
 - 不得只报告成功片段或最好一次运行；
