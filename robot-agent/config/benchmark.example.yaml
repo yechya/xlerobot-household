@@ -1,0 +1,27 @@
+version: 2
+benchmark_id: fold-household-v1
+task_id: fold_simple
+
+# Replace both digests with values emitted by the reviewed task and policy registries.
+task_fingerprint: "0000000000000000000000000000000000000000000000000000000000000000"
+binding_equals:
+  policy_fingerprint: "0000000000000000000000000000000000000000000000000000000000000000"
+
+coverage:
+  lighting: [bright, dim, mixed]
+  layout: [layout-a, layout-b, layout-c]
+  object_variant: [cloth-a, cloth-b, cloth-c]
+
+required_evidence_kinds:
+  - rgb_video
+  - robot_state
+
+gates:
+  min_episodes: 50
+  min_episodes_per_value: 10
+  min_success_rate: 0.8
+  max_intervention_rate: 0.05
+  max_failure_stage_rates:
+    precondition_evidence: 0.05
+    task_backend_execute: 0.2
+    postcondition_evidence: 0.1

@@ -1,0 +1,32 @@
+version: 1
+
+# This file intentionally fails preflight until every field is calibrated and reviewed.
+calibration:
+  approved: false
+  reviewer: ""
+  date: ""
+
+robot:
+  holonomic: true
+  base_frame: base_link
+  odom_frame: odom
+  map_frame: map
+  wheel_radius: 0.05
+  base_radius: 0.125
+
+files:
+  urdf: /etc/robot-agent/xlerobot.urdf.xacro
+  nav2_params: /etc/robot-agent/nav2.yaml
+  base_bridge_params: /etc/robot-agent/base-bridge.yaml
+  map: /etc/robot-agent/home-map.yaml
+
+topics:
+  cmd_vel: /xlerobot/base/cmd_vel_safe
+  odom: /odom
+  scan: /scan
+  imu: /imu/data
+
+safety:
+  hardware_watchdog_seconds: 0.5
+  max_linear_velocity: 0.15
+  max_angular_velocity: 0.5

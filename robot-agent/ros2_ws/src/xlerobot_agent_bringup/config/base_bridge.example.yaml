@@ -1,0 +1,22 @@
+base_bridge:
+  ros__parameters:
+    # Must remain false until host protocol, footprint and odometry are physically checked.
+    calibration_approved: false
+    remote_ip: 127.0.0.1
+    command_port: 5555
+    observation_port: 5556
+    command_topic: /xlerobot/base/cmd_vel_safe
+    odom_topic: /odom
+    diagnostics_topic: /diagnostics
+    base_frame: base_link
+    odom_frame: odom
+    publish_tf: true
+    stream_rate_hz: 30.0
+    max_linear_velocity: 0.15
+    max_angular_velocity: 0.5
+    command_timeout_seconds: 0.25
+    observation_timeout_seconds: 0.25
+    max_odometry_step_seconds: 0.1
+    # Replace with values obtained from odometry calibration runs.
+    pose_covariance_diagonal: [0.05, 0.05, 999.0, 999.0, 999.0, 0.1]
+    twist_covariance_diagonal: [0.02, 0.02, 999.0, 999.0, 999.0, 0.05]

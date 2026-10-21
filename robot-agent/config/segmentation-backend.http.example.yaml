@@ -1,0 +1,36 @@
+version: 1
+approved: false
+backend_id: local_http_v1
+entry_point: local_http_v1
+distribution: xlerobot-segmentation-http
+distribution_version: 0.1.0
+source_id: grounded-sam/local-v1
+image_topic: /camera/color/image_raw
+output_topic: /xlerobot/segmentation
+camera_frame: camera_color_optical_frame
+queries:
+  bottle: bottle
+  cup: cup
+  remote: remote control
+  tray: tray
+  table: table surface
+min_confidence: 0.7
+max_instances: 64
+max_image_bytes: 16777216
+max_input_age_seconds: 0.5
+max_inference_seconds: 0.4
+artifacts:
+  - path: segmentation-server-manifest.json
+    sha256: "0000000000000000000000000000000000000000000000000000000000000000"
+  - path: segmentation-server.token
+    sha256: "0000000000000000000000000000000000000000000000000000000000000000"
+  - path: xlerobot_segmentation_http-0.1.0-py3-none-any.whl
+    sha256: "0000000000000000000000000000000000000000000000000000000000000000"
+  - path: segmentation-server.lock
+    sha256: "0000000000000000000000000000000000000000000000000000000000000000"
+options:
+  endpoint: http://127.0.0.1:8090/v1/segment
+  timeout_seconds: 0.35
+  max_response_bytes: 8388608
+  manifest_artifact_index: 0
+  token_artifact_index: 1

@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+message: "If you use this software or its framework in academic work, please cite it."
+title: "XLeRobot Household Service Robot"
+type: software
+version: 0.1.0
+date-released: 2026-10-21
+license: Apache-2.0
+abstract: >-
+  A framework and standalone safety-gated runtime for a dual-arm, three-wheel
+  omnidirectional household service robot. It provides RGB observation
+  evidence, catalog-constrained task selection, one-time authorization,
+  bounded mobile-manipulation missions with recovery, RGB table-edge docking,
+  and Jetson TensorRT inference tooling for SmolVLA and pi0.5.
+authors:
+  - name: "XLeRobot contributors"
+keywords:
+  - robotics
+  - embodied-ai
+  - vision-language-action
+  - smolvla
+  - tensorrt
+  - jetson
+  - lerobot

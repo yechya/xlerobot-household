@@ -1,0 +1,83 @@
+version: 1
+
+robot:
+  type: bi_so100_follower
+  id: bimanual_follower0
+  left_arm_port: /dev/ttyACM0
+  right_arm_port: /dev/ttyACM1
+  dataset_owner: local
+  # Device mapping was operator-verified on 2026-07-15. Revalidate after USB topology changes.
+  # Width, height, and fps remain deployment values and must be measured before enabling a policy.
+  cameras:
+    head_cam: {type: opencv, device: 2, width: 640, height: 480, fps: 30}
+    left_cam: {type: opencv, device: 4, width: 640, height: 480, fps: 30}
+    right_cam: {type: opencv, device: 0, width: 640, height: 480, fps: 30}
+
+task_defaults:
+  fold_simple: smolvla_fold_simple_v1
+  stack_contrast: smolvla_stack_contrast_v1
+  pick_up_bottle_towel: smolvla_pick_up_bottle_towel_v1
+  pick_up_bottle: smolvla_pick_up_bottle_v1
+
+# All examples remain disabled until model hashes and physical preconditions pass HIL.
+policies:
+  smolvla_fold_simple_v1:
+    task_id: fold_simple
+    family: smolvla
+    version: "1"
+    description: fold the flattened rag
+    executable: /opt/lerobot-pzy/bin/lerobot-record
+    executable_sha256: "0000000000000000000000000000000000000000000000000000000000000000"
+    workspace: /opt/lerobot-pzy
+    runtime_manifest: /opt/lerobot-pzy/requirements.lock
+    runtime_sha256: "0000000000000000000000000000000000000000000000000000000000000000"
+    model_path: /opt/models/smolvla_fold_simple/v1
+    model_file: model.safetensors
+    model_sha256: "0000000000000000000000000000000000000000000000000000000000000000"
+    timeout_seconds: 360
+    enabled: false
+  smolvla_stack_contrast_v1:
+    task_id: stack_contrast
+    family: smolvla
+    version: "1"
+    description: stack the small bowls onto the plate
+    executable: /opt/lerobot-pzy/bin/lerobot-record
+    executable_sha256: "0000000000000000000000000000000000000000000000000000000000000000"
+    workspace: /opt/lerobot-pzy
+    runtime_manifest: /opt/lerobot-pzy/requirements.lock
+    runtime_sha256: "0000000000000000000000000000000000000000000000000000000000000000"
+    model_path: /opt/models/smolvla_stack_contrast/v1
+    model_file: model.safetensors
+    model_sha256: "0000000000000000000000000000000000000000000000000000000000000000"
+    timeout_seconds: 360
+    enabled: false
+  smolvla_pick_up_bottle_towel_v1:
+    task_id: pick_up_bottle_towel
+    family: smolvla
+    version: "1"
+    description: put the bottle on the towel
+    executable: /opt/lerobot-pzy/bin/lerobot-record
+    executable_sha256: "0000000000000000000000000000000000000000000000000000000000000000"
+    workspace: /opt/lerobot-pzy
+    runtime_manifest: /opt/lerobot-pzy/requirements.lock
+    runtime_sha256: "0000000000000000000000000000000000000000000000000000000000000000"
+    model_path: /opt/models/smolvla_pick_up_bottle_towel/v1
+    model_file: model.safetensors
+    model_sha256: "0000000000000000000000000000000000000000000000000000000000000000"
+    timeout_seconds: 360
+    enabled: false
+  smolvla_pick_up_bottle_v1:
+    task_id: pick_up_bottle
+    family: smolvla
+    version: "1"
+    description: put the bottle into the basket in front of you
+    executable: /opt/lerobot-pzy/bin/lerobot-record
+    executable_sha256: "0000000000000000000000000000000000000000000000000000000000000000"
+    workspace: /opt/lerobot-pzy
+    runtime_manifest: /opt/lerobot-pzy/requirements.lock
+    runtime_sha256: "0000000000000000000000000000000000000000000000000000000000000000"
+    model_path: /opt/models/smolvla_pick_up_bottle/v1
+    model_file: model.safetensors
+    model_sha256: "0000000000000000000000000000000000000000000000000000000000000000"
+    timeout_seconds: 360
+    enabled: false

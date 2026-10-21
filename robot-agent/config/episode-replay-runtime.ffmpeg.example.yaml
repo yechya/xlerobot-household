@@ -1,0 +1,27 @@
+version: 2
+approved: false
+runtime_id: terminal-failure-clips-v1
+plan:
+  path: /var/lib/robot-agent/replay/learned-failures-v1.json
+  sha256: "0000000000000000000000000000000000000000000000000000000000000000"
+episode_root: /var/lib/robot-agent/episodes
+output_root: /var/lib/robot-agent/replay-runs
+max_entries: 1000
+max_output_bytes_per_entry: 536870912
+failure_policy: continue
+handlers:
+  terminal_clip:
+    entry_point: terminal_video_clip_v1
+    distribution: xlerobot-replay-ffmpeg
+    distribution_version: 0.1.0
+    artifacts:
+      - path: /usr/bin/ffmpeg
+        sha256: "0000000000000000000000000000000000000000000000000000000000000000"
+    options:
+      input_kind: rgb_video
+      before_terminal_seconds: 8.0
+      output_extension: .mp4
+      video_codec: libx264
+      timeout_seconds: 120.0
+routes:
+  learned_candidate_review: [terminal_clip]

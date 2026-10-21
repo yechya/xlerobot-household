@@ -1,0 +1,30 @@
+version: 2
+approved: false
+runtime_id: learned-fallback-triage-run-v1
+
+plan:
+  path: /var/lib/robot-agent/replay/triage-v1.json
+  sha256: "0000000000000000000000000000000000000000000000000000000000000000"
+
+episode_root: /var/lib/robot-agent/episodes
+output_root: /var/lib/robot-agent/replay-runs
+max_entries: 1000
+max_output_bytes_per_entry: 10737418240
+failure_policy: continue
+
+handlers:
+  evidence_export:
+    entry_point: evidence_export_v1
+    distribution: xlerobot-agent
+    distribution_version: 0.1.0
+    artifacts: []
+    options:
+      include_kinds: [rgb_video, robot_state]
+      preserve_extension: true
+
+# Every route present in the bound plan must appear exactly once here.
+routes:
+  perception_fix: [evidence_export]
+  planning_fix: [evidence_export]
+  learned_candidate_review: [evidence_export]
+  system_review: [evidence_export]

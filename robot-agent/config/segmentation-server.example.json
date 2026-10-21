@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "approved": false,
+  "bind_host": "127.0.0.1",
+  "port": 8090,
+  "manifest": {
+    "path": "segmentation-server-manifest.json",
+    "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+  },
+  "provider": {
+    "entry_point": "grounded_sam2_v1",
+    "distribution": "xlerobot-segmentation-grounded-sam2",
+    "version": "0.1.0",
+    "artifacts": [
+      {
+        "path": "grounded-sam2-model-bundle.json",
+        "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      {
+        "path": "sam2.1_hiera_small.pt",
+        "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      {
+        "path": "GroundingDINO_SwinT_OGC.py",
+        "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      {
+        "path": "groundingdino_swint_ogc.pth",
+        "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      {
+        "path": "xlerobot_segmentation_grounded_sam2-0.1.0-py3-none-any.whl",
+        "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+      },
+      {
+        "path": "segmentation-provider.lock",
+        "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+      }
+    ],
+    "options": {
+      "bundle_manifest_artifact_index": 0,
+      "sam2_checkpoint_artifact_index": 1,
+      "grounding_dino_config_artifact_index": 2,
+      "grounding_dino_checkpoint_artifact_index": 3,
+      "device": "cuda:0",
+      "box_threshold": 0.35,
+      "text_threshold": 0.25,
+      "nms_iou_threshold": 0.5,
+      "max_detections_per_label": 8
+    }
+  },
+  "model_artifact_index": 0,
+  "token": {
+    "path": "segmentation-server.token",
+    "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+  },
+  "max_request_bytes": 33554432,
+  "max_image_bytes": 16777216,
+  "max_response_bytes": 8388608,
+  "max_instances": 64,
+  "max_inference_seconds": 0.35
+}

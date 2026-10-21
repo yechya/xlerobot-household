@@ -1,0 +1,6 @@
+{
+  "schema_version": 1,
+  "server_id": "grounded_sam_local_v1",
+  "model_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "allowed_labels": ["bottle", "cup", "remote", "table", "tray"]
+}

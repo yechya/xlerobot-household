@@ -1,0 +1,25 @@
+[Unit]
+Description=XLeRobot standalone robot-agent software runtime
+After=basic.target
+
+[Service]
+Type=simple
+WorkingDirectory=@PREFIX@
+EnvironmentFile=@CONFIG_DIR@/robot-agent.env
+ExecStart=@PREFIX@/.venv/bin/robotd
+ExecStop=/bin/kill -TERM $MAINPID
+Restart=on-failure
+RestartSec=2
+TimeoutStopSec=10
+KillMode=control-group
+UMask=0077
+
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ProtectHome=read-only
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+ReadWritePaths=@STATE_DIR@ @RUNTIME_DIR@ %h/.cache/huggingface/lerobot
+
+[Install]
+WantedBy=default.target

@@ -1,0 +1,102 @@
+version: 1
+
+tasks:
+  fold_simple:
+    name: Fold cloth
+    description: fold the flattened rag
+    executor: learned_policy
+    executor_config: {}
+    aliases: [折叠毛巾, 叠毛巾, 折叠抹布, 叠抹布, 折叠布, 叠布, 折一下, 叠一下, 折毛巾, 折抹布, 把毛巾折叠, 把毛巾叠起来, 把抹布叠起来, 把抹布叠好, fold, fold cloth, fold rag]
+    safety: &default_safety
+      args: {}
+      requires_observation: true
+      requires_token: true
+      max_runtime_seconds: 360
+      allowed_modes: [DRY_RUN, OBSERVE_ONLY, AWAITING_CONFIRMATION, ARMED_REAL, EXECUTING]
+      stop_conditions: [task_completed, operator_stop_requested, max_runtime_exceeded, observation_lost, STOPPING, ESTOP]
+    manipulation:
+      require_new_snapshot: true
+      max_policy_attempts: 1
+      preconditions:
+        - {id: cloth_visible, question: "Is one unfolded cloth clearly visible on the work surface?", min_confidence: 0.8}
+        - {id: cloth_reachable, question: "Is the entire cloth inside the marked manipulation workspace?", min_confidence: 0.8}
+        - {id: workspace_clear, question: "Is the manipulation workspace clear of unrelated objects and people?", min_confidence: 0.9}
+      postconditions:
+        - {id: cloth_folded, question: "Is the cloth visibly folded into a compact layered shape?", min_confidence: 0.85}
+        - {id: cloth_stable, question: "Is the folded cloth resting stably on the work surface?", min_confidence: 0.8}
+
+  stack_contrast:
+    name: Stack bowls
+    description: stack the small bowls onto the plate
+    executor: learned_policy
+    executor_config: {}
+    aliases: [叠碗, 堆碗, 把碗叠起来, 碗叠到盘子, 碗叠起来, 叠小碗, 把碗堆起来, 叠一下碗, 堆一下碗, 把碗叠到盘子, 把碗堆到盘子, stack, stack bowls]
+    safety:
+      <<: *default_safety
+    manipulation:
+      require_new_snapshot: true
+      max_policy_attempts: 1
+      preconditions:
+        - {id: bowls_visible, question: "Are the expected small bowls clearly visible and separate?", min_confidence: 0.85}
+        - {id: plate_visible, question: "Is the destination plate clearly visible?", min_confidence: 0.85}
+        - {id: workspace_clear, question: "Is the manipulation workspace clear of unrelated objects and people?", min_confidence: 0.9}
+      postconditions:
+        - {id: bowls_on_plate, question: "Are all expected bowls stacked on the destination plate?", min_confidence: 0.9}
+        - {id: stack_stable, question: "Is the bowl stack upright and stable?", min_confidence: 0.85}
+
+  pick_up_bottle_towel:
+    name: Bottle onto towel
+    description: put the bottle on the towel
+    executor: learned_policy
+    executor_config: {}
+    aliases: [把瓶子放到毛巾上, 把瓶子放毛巾上, 瓶子放到毛巾上, 把瓶子放到毛巾, 瓶子放毛巾, 瓶子放毛巾上, put bottle on towel]
+    safety:
+      <<: *default_safety
+    manipulation:
+      require_new_snapshot: true
+      max_policy_attempts: 1
+      preconditions:
+        - {id: bottle_visible, question: "Is exactly one target bottle clearly visible?", min_confidence: 0.85}
+        - {id: towel_visible, question: "Is the destination towel clearly visible and unobstructed?", min_confidence: 0.85}
+        - {id: workspace_clear, question: "Is the manipulation workspace clear of unrelated objects and people?", min_confidence: 0.9}
+      postconditions:
+        - {id: bottle_on_towel, question: "Is the target bottle resting on the destination towel?", min_confidence: 0.9}
+        - {id: bottle_stable, question: "Is the bottle stable and not being held by the robot?", min_confidence: 0.85}
+
+  pick_up_bottle:
+    name: Bottle into basket
+    description: put the bottle into the basket in front of you
+    executor: learned_policy
+    executor_config: {}
+    aliases: [把瓶子放到筐里, 把瓶子放筐里, 瓶子放到筐里, 把瓶子放进筐里, 瓶子放进筐里, 瓶子放筐, 瓶子放篮子, 把瓶子放到筐, 把瓶子放篮子, 放瓶子到筐, 放瓶子进筐, 把碗放进筐里, 把碗放筐里, 把碗放进筐, 碗放进筐, 碗放筐里, put bottle basket, bottle into basket]
+    safety:
+      <<: *default_safety
+    manipulation:
+      require_new_snapshot: true
+      max_policy_attempts: 1
+      preconditions:
+        - {id: bottle_visible, question: "Is exactly one target bottle clearly visible?", min_confidence: 0.85}
+        - {id: basket_visible, question: "Is the destination basket clearly visible and open?", min_confidence: 0.85}
+        - {id: workspace_clear, question: "Is the manipulation workspace clear of unrelated objects and people?", min_confidence: 0.9}
+      postconditions:
+        - {id: bottle_in_basket, question: "Is the target bottle visibly inside the destination basket?", min_confidence: 0.9}
+        - {id: bottle_released, question: "Has the robot released the bottle without dropping it outside the basket?", min_confidence: 0.85}
+
+  dock_table:
+    name: Dock at table edge
+    description: approach and align to the nearest table edge
+    executor: table_docking
+    executor_config: {}
+    aliases: [靠桌子, 走到桌边, 靠近桌沿, 贴着桌子, 对接桌边, 移动到桌边, 去桌子旁边, 到桌子旁边, 移动到桌子旁边, 去桌边, 到桌边, 靠近桌子, 靠柜子, 去柜子旁边, 到柜子旁边, 靠近柜子, dock table, dock at table, approach table]
+    safety:
+      <<: *default_safety
+      max_runtime_seconds: 120
+    manipulation:
+      require_new_snapshot: true
+      max_policy_attempts: 1
+      preconditions:
+        - {id: table_edge_visible, question: "Is a table or cabinet edge clearly visible in front of the robot?", min_confidence: 0.8}
+        - {id: approach_clear, question: "Is the floor between the robot and the table edge clear of people and obstacles?", min_confidence: 0.9}
+      postconditions:
+        - {id: docked_at_edge, question: "Is the robot base positioned directly in front of the table edge at working distance?", min_confidence: 0.8}
+        - {id: dock_workspace_clear, question: "Is the workspace in front of the robot clear and ready for manipulation?", min_confidence: 0.85}

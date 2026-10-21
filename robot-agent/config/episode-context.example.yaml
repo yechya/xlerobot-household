@@ -1,0 +1,8 @@
+version: 1
+
+# Change this only when the physical deployment or calibration context changes.
+deployment_id: lab-kitchen-1
+tags:
+  lighting: bright
+  layout: layout-a
+  object_variant: rigid-set-a

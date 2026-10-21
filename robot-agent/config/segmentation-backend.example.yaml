@@ -1,0 +1,26 @@
+version: 1
+# This file intentionally refuses startup until a reviewed plugin and model artifacts are bound.
+approved: false
+backend_id: open_vocab_v1
+entry_point: open_vocab_v1
+distribution: xlerobot-segmentation-example
+distribution_version: 0.0.0
+source_id: reviewed-segmentation/v1
+image_topic: /camera/color/image_raw
+output_topic: /xlerobot/segmentation
+camera_frame: camera_color_optical_frame
+queries:
+  bottle: bottle
+  cup: cup
+  remote: remote control
+  tray: tray
+  table: table surface
+min_confidence: 0.7
+max_instances: 64
+max_image_bytes: 16777216
+max_input_age_seconds: 0.5
+max_inference_seconds: 1.0
+artifacts:
+  - path: model.bin
+    sha256: "0000000000000000000000000000000000000000000000000000000000000000"
+options: {}

@@ -1,0 +1,50 @@
+# lerobot 环境目录（外部依赖，由用户自行管理）
+lerobot/
+lerobot_0.3.3/
+lerobot_0.3.3_pzy/
+lerobot_0.3.3_sys/
+lerobot_0.3.3_ycy/
+lerobot_ljx/
+lerobot_sys/
+lerobot_train/
+lerobot_ycy/
+
+# 外部引用项目
+XLeRobot/
+vector-os-nano/
+project/
+archive/
+
+# Python and local environments
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv*/
+.env
+.runtime/
+.coverage
+htmlcov/
+conn_wifi.sh
+authorized_keys
+*.whl
+*.pt
+*.pth
+*.bin
+*.ckpt
+*.safetensors
+*.engine
+*.onnx
+*.log
+
+# Agent and experiment artifacts
+.omo/
+.claude/
+tmp/
+outputs/
+runs/
+*.rrd
+MUJOCO_LOG.TXT
+DepthCapture_*.png
+DepthCamera_*.json

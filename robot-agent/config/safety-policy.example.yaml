@@ -1,0 +1,16 @@
+version: 1
+max_age_seconds: 0.5
+
+# Use a namespaced, versioned source emitted only by the reviewed perception adapter.
+allowed_source_prefixes: [safety/approved/]
+require_physical_estop: true
+deny_when_privacy_active: true
+
+motion:
+  min_person_distance_m: 0.8
+  min_pet_distance_m: 0.5
+
+manipulation:
+  min_person_distance_m: 1.2
+  min_pet_distance_m: 0.8
+  require_clear_workspace: true

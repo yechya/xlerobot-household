@@ -1,0 +1,19 @@
+version: 1
+
+# Values are map-frame examples only. Calibrate and validate them in simulation
+# before installing this file as /etc/robot-agent/navigation.yaml.
+locations:
+  kitchen_table_staging:
+    frame_id: map
+    x: 1.20
+    y: -0.45
+    yaw: 1.57
+  living_room_service:
+    frame_id: map
+    x: -0.80
+    y: 0.60
+    yaw: 0.00
+
+docks:
+  charging_dock:
+    dock_id: charging_dock

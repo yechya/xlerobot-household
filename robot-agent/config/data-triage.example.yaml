@@ -1,0 +1,29 @@
+version: 1
+approved: false
+triage_id: household-learning-triage-v1
+
+system_routes:
+  perception_fix:
+    - precondition_evidence
+    - scene_resolve
+  planning_fix:
+  navigation_fix:
+    - navigate
+    - dock
+  verification_fix:
+    - postcondition_evidence
+
+learning_gate:
+  task_ids: [fold_simple]
+  executors: [learned_policy, primitive_graph]
+  failure_stages: [task_backend_execute]
+  min_attempts: 20
+  min_learning_failures: 5
+  min_learning_failure_rate: 0.25
+  max_system_failure_rate: 0.05
+  max_unclassified_failure_rate: 0.0
+  max_intervention_rate: 0.10
+  coverage:
+    lighting: 2
+    layout: 2
+    object_variant: 3

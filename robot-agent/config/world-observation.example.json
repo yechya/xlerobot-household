@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "observation_id": "map-scene-000001",
+  "planning_frame": "map",
+  "captured_at": 1700000000.0,
+  "source": "rgb_head/detector-v1",
+  "room_id": null,
+  "parent_id": null,
+  "objects": [
+    {
+      "instance_id": "camera-cup-17",
+      "label": "cup",
+      "frame_id": "map",
+      "pose": {
+        "position": [1.2, 0.4, 0.82],
+        "orientation": [0.0, 0.0, 0.0, 1.0]
+      },
+      "size": [0.08, 0.08, 0.12],
+      "confidence": 0.93,
+      "observed_at": 1700000000.0,
+      "source": "rgb_head/detector-v1"
+    }
+  ]
+}

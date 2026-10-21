@@ -1,0 +1,15 @@
+max_stop_latency_seconds: 0.5
+stop_hold_seconds: 0.2
+max_sample_gap_seconds: 0.15
+linear_stop_threshold: 0.02
+angular_stop_threshold: 0.05
+max_action_terminal_seconds: 2.0
+allowed_action_statuses:
+  - canceled
+  - aborted
+  - rejected
+required_scenarios:
+  - heartbeat_loss
+  - robotd_killed
+  - nav2_killed
+  - sensor_loss

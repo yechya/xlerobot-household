@@ -1,0 +1,3 @@
+recursive-include config *.example *.example.*
+recursive-include deploy *.service
+recursive-include docs *.md

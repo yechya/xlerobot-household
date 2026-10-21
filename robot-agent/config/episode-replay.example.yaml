@@ -1,0 +1,30 @@
+version: 1
+replay_id: learned-fallback-triage-v1
+filters:
+  task_ids: []
+  executors: []
+  success: failure
+  failure_stages: []
+  outcome_codes: []
+  tags: {}
+required_evidence_kinds:
+  - rgb_video
+  - robot_state
+routes:
+  - route_id: perception_fix
+    executors: []
+    failure_stages:
+      - precondition_evidence
+      - scene_resolve
+    outcome_codes: []
+  - route_id: planning_fix
+    executors: []
+    failure_stages:
+    outcome_codes: []
+  - route_id: learned_candidate_review
+    executors:
+      - learned_policy
+    failure_stages:
+      - task_backend_execute
+    outcome_codes: []
+default_route: system_review

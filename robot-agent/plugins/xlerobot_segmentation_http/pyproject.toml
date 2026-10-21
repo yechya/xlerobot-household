@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "xlerobot-segmentation-http"
+version = "0.1.0"
+description = "Loopback HTTP segmentation backend for XLeRobot Agent"
+requires-python = ">=3.10"
+dependencies = ["xlerobot-agent>=0.1,<0.2"]
+
+[project.entry-points."xlerobot.segmentation_backends"]
+local_http_v1 = "xlerobot_segmentation_http.backend:create_backend"
+
+[tool.setuptools.packages.find]
+include = ["xlerobot_segmentation_http*"]

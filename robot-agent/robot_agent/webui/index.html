@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="dark">
+    <title>Robotd Control Desk</title>
+    <link rel="stylesheet" href="/styles.css">
+    <script src="/app.js" defer></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div class="brand-lockup">
+          <div class="brand-mark" aria-hidden="true">R</div>
+          <div>
+            <p class="eyebrow">XLeRobot / ROBOTD</p>
+            <h1>Control Desk</h1>
+          </div>
+        </div>
+        <div class="connection-status" aria-live="polite">
+          <span class="status-dot" id="connection-dot"></span>
+          <span id="connection-label">连接中</span>
+          <button class="button button-quiet" id="refresh-button" type="button">刷新</button>
+        </div>
+      </header>
+
+      <main class="workspace">
+        <section class="panel command-panel" aria-labelledby="command-title">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">COMMAND</p>
+              <h2 id="command-title">任务控制</h2>
+            </div>
+            <span class="mode-chip" id="runtime-mode">DRY_RUN</span>
+          </div>
+
+          <form id="goal-form" class="goal-form">
+            <label for="goal-input">目标指令</label>
+            <textarea id="goal-input" rows="3" maxlength="1024" placeholder="例如：把瓶子放进筐里"></textarea>
+            <div class="form-actions">
+              <button class="button button-primary" type="submit">生成计划</button>
+              <button class="button button-secondary" id="goal-dry-run" type="button">目标 Dry-run</button>
+              <button class="button button-secondary" id="goal-observe" type="button">观察</button>
+            </div>
+          </form>
+
+          <div class="visual-plan" id="visual-plan-panel" hidden>
+            <div class="section-heading compact-heading">
+              <div>
+                <p class="eyebrow">VISUAL PLAN</p>
+                <h3 id="visual-plan-title">视觉计划</h3>
+              </div>
+              <span class="plan-hash" id="visual-plan-hash">未生成</span>
+            </div>
+            <ol class="plan-steps" id="visual-plan-steps"></ol>
+            <div class="form-actions">
+              <button class="button button-secondary" id="visual-plan-arm" type="button">授权计划</button>
+              <button class="button button-primary" id="visual-plan-execute" type="button" disabled>执行计划</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel camera-panel" aria-labelledby="camera-title">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">RGB CAMERAS</p>
+              <h2 id="camera-title">相机预览</h2>
+            </div>
+            <div class="camera-toolbar">
+              <span class="muted" id="camera-status">未打开</span>
+              <button class="button button-secondary" id="camera-toggle" type="button">打开预览</button>
+            </div>
+          </div>
+          <div class="camera-grid" id="camera-grid" hidden>
+            <figure class="camera-view">
+              <figcaption><strong>头部</strong><span id="camera-health-head_cam">未连接</span></figcaption>
+              <img id="camera-image-head_cam" alt="头部相机画面">
+            </figure>
+            <figure class="camera-view">
+              <figcaption><strong>左臂</strong><span id="camera-health-left_cam">未连接</span></figcaption>
+              <img id="camera-image-left_cam" alt="左臂相机画面">
+            </figure>
+            <figure class="camera-view">
+              <figcaption><strong>右臂</strong><span id="camera-health-right_cam">未连接</span></figcaption>
+              <img id="camera-image-right_cam" alt="右臂相机画面">
+            </figure>
+          </div>
+        </section>
+
+        <section class="panel camera-config-panel" aria-labelledby="camera-mapping-title">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">CAMERA MAP</p>
+              <h2 id="camera-mapping-title">相机端口映射</h2>
+            </div>
+            <span class="mode-chip" id="camera-mapping-availability">读取中</span>
+          </div>
+
+          <form id="camera-mapping-form" class="camera-mapping-form">
+            <div class="field-group">
+              <label for="camera-map-head_cam">头部摄像头</label>
+              <input
+                id="camera-map-head_cam"
+                name="head_cam"
+                type="text"
+                list="camera-device-options"
+                pattern="/dev/video[0-9]{1,3}"
+                autocomplete="off"
+                placeholder="/dev/video2"
+                required
+              >
+              <div class="field-note" id="camera-map-status-head_cam">--</div>
+            </div>
+            <div class="field-group">
+              <label for="camera-map-left_cam">左臂摄像头</label>
+              <input
+                id="camera-map-left_cam"
+                name="left_cam"
+                type="text"
+                list="camera-device-options"
+                pattern="/dev/video[0-9]{1,3}"
+                autocomplete="off"
+                placeholder="/dev/video4"
+                required
+              >
+              <div class="field-note" id="camera-map-status-left_cam">--</div>
+            </div>
+            <div class="field-group">
+              <label for="camera-map-right_cam">右臂摄像头</label>
+              <input
+                id="camera-map-right_cam"
+                name="right_cam"
+                type="text"
+                list="camera-device-options"
+                pattern="/dev/video[0-9]{1,3}"
+                autocomplete="off"
+                placeholder="/dev/video0"
+                required
+              >
+              <div class="field-note" id="camera-map-status-right_cam">--</div>
+            </div>
+            <datalist id="camera-device-options"></datalist>
+            <label class="checkbox-field camera-restart-field" for="camera-mapping-restart">
+              <input id="camera-mapping-restart" name="restart_services" type="checkbox" checked>
+              <span>保存后重启相机服务和 robotd</span>
+            </label>
+            <div class="camera-mapping-actions">
+              <button class="button button-secondary" id="camera-mapping-refresh" type="button">重新读取</button>
+              <button class="button button-primary" id="camera-mapping-apply" type="submit">保存映射</button>
+            </div>
+          </form>
+
+          <dl class="camera-mapping-meta">
+            <div><dt>Env 文件</dt><dd id="camera-mapping-env">--</dd></div>
+            <div><dt>策略注册表</dt><dd id="camera-mapping-policy">--</dd></div>
+          </dl>
+        </section>
+
+        <section class="panel recording-panel" aria-labelledby="recording-title">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">LEROBOT DATASET</p>
+              <h2 id="recording-title">数据集录制</h2>
+            </div>
+            <div class="recording-heading-status">
+              <span class="muted" id="recording-availability">读取配置中</span>
+              <span class="mode-chip" id="recording-state">UNKNOWN</span>
+            </div>
+          </div>
+
+          <form id="recording-form" class="recording-form">
+            <div class="field-group recording-name-field">
+              <label for="recording-dataset-name">数据集名称</label>
+              <input
+                id="recording-dataset-name"
+                name="dataset_name"
+                type="text"
+                maxlength="80"
+                pattern="[a-z0-9][a-z0-9._-]{0,79}"
+                autocomplete="off"
+                placeholder="clear_table_v2"
+                required
+              >
+            </div>
+            <div class="field-group recording-task-field">
+              <label for="recording-task">任务描述</label>
+              <input
+                id="recording-task"
+                name="task"
+                type="text"
+                maxlength="240"
+                autocomplete="off"
+                placeholder="clear the table with both arms"
+                required
+              >
+            </div>
+            <div class="field-group">
+              <label for="recording-episodes">新增回合</label>
+              <input id="recording-episodes" name="num_episodes" type="number" min="1" step="1" required>
+            </div>
+            <div class="field-group">
+              <label for="recording-episode-time">单回合秒数</label>
+              <input id="recording-episode-time" name="episode_time_s" type="number" min="1" step="1" required>
+            </div>
+            <div class="field-group">
+              <label for="recording-reset-time">复位秒数</label>
+              <input id="recording-reset-time" name="reset_time_s" type="number" min="0" step="1" required>
+            </div>
+            <label class="checkbox-field" for="recording-resume">
+              <input id="recording-resume" name="resume" type="checkbox">
+              <span>续录已有数据集</span>
+            </label>
+            <div class="recording-actions">
+              <button class="button button-secondary" id="recording-validate" type="button">验证配置</button>
+              <button class="button button-primary" id="recording-start" type="submit">开始录制</button>
+              <button class="button button-danger" id="recording-stop" type="button" disabled>停止录制</button>
+            </div>
+          </form>
+
+          <div class="recording-progress-wrap">
+            <div class="recording-progress-label">
+              <span id="recording-progress-text">0 / 0 回合</span>
+              <span id="recording-progress-percent">0%</span>
+            </div>
+            <progress id="recording-progress" value="0" max="100">0%</progress>
+          </div>
+
+          <dl class="recording-metrics">
+            <div><dt>仓库</dt><dd id="recording-repo">--</dd></div>
+            <div><dt>总帧数</dt><dd id="recording-frames">0</dd></div>
+            <div><dt>相机服务</dt><dd id="recording-camera">--</dd></div>
+            <div><dt>会话</dt><dd id="recording-session">--</dd></div>
+            <div class="recording-path"><dt>存储路径</dt><dd id="recording-path">--</dd></div>
+          </dl>
+
+          <div class="recording-log-wrap">
+            <div class="detail-label">RECORDER LOG</div>
+            <pre class="recording-log" id="recording-log">暂无录制日志</pre>
+          </div>
+        </section>
+
+        <aside class="side-column">
+          <section class="panel status-panel" aria-labelledby="status-title">
+            <div class="section-heading compact-heading">
+              <div>
+                <p class="eyebrow">TELEMETRY</p>
+                <h2 id="status-title">运行状态</h2>
+              </div>
+            </div>
+            <dl class="status-grid">
+              <div><dt>状态</dt><dd id="status-state">--</dd></div>
+              <div><dt>当前任务</dt><dd id="status-task">--</dd></div>
+              <div><dt>执行器</dt><dd id="status-executor">--</dd></div>
+              <div><dt>安全门</dt><dd id="status-safety">--</dd></div>
+              <div><dt>计划缓存</dt><dd id="status-plans">--</dd></div>
+              <div><dt>会话</dt><dd id="status-session">--</dd></div>
+            </dl>
+          </section>
+
+          <section class="panel safety-panel" aria-labelledby="safety-title">
+            <div class="section-heading compact-heading">
+              <div>
+                <p class="eyebrow">SAFETY</p>
+                <h2 id="safety-title">控制</h2>
+              </div>
+            </div>
+            <div class="safety-actions">
+              <button class="button button-secondary" id="pause-button" type="button">暂停</button>
+              <button class="button button-secondary" id="stop-button" type="button">停止</button>
+              <button class="button button-danger" id="estop-button" type="button">急停</button>
+              <button class="button button-quiet" id="reset-button" type="button">复位</button>
+            </div>
+          </section>
+        </aside>
+
+        <section class="panel tasks-panel" aria-labelledby="tasks-title">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">REGISTERED TASKS</p>
+              <h2 id="tasks-title">已注册任务</h2>
+            </div>
+            <span class="muted" id="task-count">0 项</span>
+          </div>
+          <div class="task-list" id="task-list">
+            <p class="empty-state">正在读取任务目录...</p>
+          </div>
+        </section>
+
+        <section class="panel response-panel" aria-labelledby="response-title">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">EVENT STREAM</p>
+              <h2 id="response-title">最近响应</h2>
+            </div>
+            <button class="button button-quiet" id="clear-events" type="button">清空</button>
+          </div>
+          <div class="event-list" id="event-list" aria-live="polite">
+            <p class="empty-state">暂无操作记录</p>
+          </div>
+          <div class="response-detail-wrap">
+            <div class="detail-label">RESULT DETAIL</div>
+            <pre class="response-detail" id="response-detail">等待操作结果...</pre>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer-bar">
+        <span>LOCAL CONTROL SURFACE</span>
+        <span id="last-updated">等待状态</span>
+      </footer>
+      <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    </div>
+  </body>
+</html>

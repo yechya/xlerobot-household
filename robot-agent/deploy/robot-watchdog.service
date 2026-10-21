@@ -1,0 +1,34 @@
+[Unit]
+Description=XLeRobot ROS 2 heartbeat watchdog
+After=network.target
+Before=robotd.service
+
+[Service]
+Type=simple
+User=robot
+Group=robot
+SupplementaryGroups=dialout
+WorkingDirectory=/opt/robot-agent
+EnvironmentFile=/etc/robot-agent/robot-agent.env
+ExecStart=/opt/robot-agent/.venv/bin/robot-watchdog
+Restart=always
+RestartSec=1
+TimeoutStopSec=3
+KillMode=control-group
+UMask=0077
+
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+LockPersonality=true
+DevicePolicy=closed
+DeviceAllow=/dev/ttyACM0 rw
+DeviceAllow=/dev/ttyACM1 rw
+
+[Install]
+WantedBy=multi-user.target

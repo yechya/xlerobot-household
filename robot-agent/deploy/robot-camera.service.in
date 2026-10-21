@@ -1,0 +1,28 @@
+[Unit]
+Description=XLeRobot three-camera RGB capture service
+Before=robotd-software.service
+After=basic.target
+
+[Service]
+Type=simple
+WorkingDirectory=@PREFIX@
+EnvironmentFile=@CONFIG_DIR@/robot-agent.env
+ExecStart=@PREFIX@/.venv/bin/robot-camera
+Restart=on-failure
+RestartSec=2
+TimeoutStopSec=5
+KillMode=control-group
+UMask=0077
+
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ProtectHome=read-only
+RestrictAddressFamilies=AF_INET AF_INET6
+DevicePolicy=closed
+DeviceAllow=/dev/video0 rw
+DeviceAllow=/dev/video2 rw
+DeviceAllow=/dev/video4 rw
+
+[Install]
+WantedBy=default.target

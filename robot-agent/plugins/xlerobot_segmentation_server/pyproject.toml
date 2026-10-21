@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "xlerobot-segmentation-server"
+version = "0.1.0"
+description = "Model-neutral local segmentation service for XLeRobot Agent"
+requires-python = ">=3.10"
+
+[project.scripts]
+xlerobot-segmentation-serve = "xlerobot_segmentation_server.runtime:main"
+xlerobot-segmentation-conformance = "xlerobot_segmentation_server.conformance:main"
+
+[tool.setuptools.packages.find]
+include = ["xlerobot_segmentation_server*"]

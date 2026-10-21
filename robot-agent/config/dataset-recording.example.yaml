@@ -1,0 +1,34 @@
+version: 1
+enabled: false
+
+# LeRobot 0.3.3 recording runtime. Enable only after these local paths are verified.
+executable: /opt/lerobot/bin/lerobot-record
+workspace: /opt/lerobot
+storage_root: ~/.cache/huggingface/lerobot
+
+teleoperator:
+  type: bi_so100_leader
+  id: bimanual_leader0
+  left_arm_port: /dev/ttyACM2
+  right_arm_port: /dev/ttyACM3
+
+defaults:
+  fps: 30
+  num_episodes: 10
+  episode_time_s: 30
+  reset_time_s: 15
+
+limits:
+  num_episodes: 100
+  episode_time_s: 600
+  reset_time_s: 300
+
+# robot-camera owns the RGB devices outside recording sessions. These commands transfer
+# ownership to lerobot-record and restore preview/VLM access after every exit path.
+camera_service:
+  pause_command: [systemctl, --user, stop, robot-camera.service]
+  resume_command: [systemctl, --user, start, robot-camera.service]
+  command_timeout_seconds: 15
+
+stop_grace_seconds: 5
+log_tail_lines: 80

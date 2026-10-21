@@ -1,0 +1,20 @@
+version: 1
+experiment_id: pick-up-bottle-rgb-ablation-v1
+task_id: pick_up_bottle
+
+# Replace with the exact task fingerprint and policy fingerprint from the registries.
+task_fingerprint: "0000000000000000000000000000000000000000000000000000000000000000"
+modes:
+  - direct_vla
+  - rgb_precondition_vla
+  - rgb_pre_post_vla
+binding_equals:
+  policy_fingerprint: "0000000000000000000000000000000000000000000000000000000000000000"
+
+# Keep the same environment slices in every mode; counts are reported per mode.
+coverage:
+  lighting: [bright, dim, mixed]
+  layout: [layout-a, layout-b, layout-c]
+  object_variant: [bottle-a, bottle-b, bottle-c]
+
+min_episodes_per_mode: 10

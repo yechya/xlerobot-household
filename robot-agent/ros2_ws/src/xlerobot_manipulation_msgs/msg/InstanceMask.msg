@@ -1,0 +1,9 @@
+string instance_id
+string label
+float32 confidence
+uint32 x_offset
+uint32 y_offset
+uint32 width
+uint32 height
+uint8[] mask
+string source

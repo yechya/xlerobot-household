@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "xlerobot-replay-ffmpeg"
+version = "0.1.0"
+description = "Bound terminal failure video clip handler for XLeRobot episode evidence"
+requires-python = ">=3.10"
+dependencies = ["xlerobot-agent>=0.1,<0.2"]
+
+[project.entry-points."xlerobot.replay_handlers"]
+terminal_video_clip_v1 = "xlerobot_replay_ffmpeg.handler:create_handler"
+
+[tool.setuptools.packages.find]
+include = ["xlerobot_replay_ffmpeg*"]

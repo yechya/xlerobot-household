@@ -1,0 +1,161 @@
+version: 1
+
+# Named targets and task IDs must exist in the reviewed navigation and task catalogs.
+missions:
+  tidy_remote_at_living_room:
+    name: Tidy living-room remote
+    description: navigate to the living-room table, dock, place the remote in its tray and return
+    aliases: [整理客厅遥控器, 把遥控器放回托盘, tidy the remote]
+    requires_observation: true
+    max_runtime_seconds: 900
+    max_node_visits: 32
+    graph:
+      id: tidy_remote
+      type: sequence
+      children:
+        - id: reach_table
+          type: retry
+          max_attempts: 2
+          child:
+            id: navigate_table
+            type: action
+            action: navigate
+            target: living_room_table_staging
+            timeout_seconds: 240
+        - id: dock_table
+          type: action
+          action: dock
+          target: living_room_table
+          timeout_seconds: 120
+        - id: place_remote
+          type: action
+          action: task
+          target: place_remote_in_tray
+          timeout_seconds: 180
+        - id: return_home
+          type: action
+          action: navigate
+          target: home_staging
+          timeout_seconds: 240
+
+  press_living_room_button:
+    name: Press living-room button
+    description: navigate, dock, visually align, then perform one force-guarded press
+    aliases: [按客厅开关, 去客厅按按钮, press living room button]
+    requires_observation: true
+    max_runtime_seconds: 600
+    max_node_visits: 24
+    graph:
+      id: press_button_mission
+      type: sequence
+      children:
+        - id: reach_button
+          type: action
+          action: navigate
+          target: living_room_table_staging
+          timeout_seconds: 240
+        - id: dock_button
+          type: action
+          action: dock
+          target: living_room_table
+          timeout_seconds: 120
+        - id: align_button
+          type: action
+          action: task
+          target: align_left_gripper_to_button
+          timeout_seconds: 30
+        - id: press_button
+          type: action
+          action: task
+          target: press_aligned_button
+          timeout_seconds: 20
+
+  open_living_room_drawer:
+    name: Open living-room drawer
+    description: navigate, dock, align, grasp and force-monitor one drawer pull
+    aliases: [打开客厅抽屉, 去客厅拉抽屉, open living room drawer]
+    requires_observation: true
+    max_runtime_seconds: 700
+    max_node_visits: 32
+    graph:
+      id: open_drawer_mission
+      type: sequence
+      children:
+        - id: reach_drawer
+          type: action
+          action: navigate
+          target: living_room_table_staging
+          timeout_seconds: 240
+        - id: dock_drawer
+          type: action
+          action: dock
+          target: living_room_table
+          timeout_seconds: 120
+        - id: align_handle
+          type: action
+          action: task
+          target: align_left_gripper_to_drawer_handle
+          timeout_seconds: 30
+        - id: grasp_handle
+          type: action
+          action: task
+          target: grasp_left_drawer_handle
+          timeout_seconds: 15
+        - id: pull_drawer
+          type: action
+          action: task
+          target: pull_grasped_drawer
+          timeout_seconds: 40
+
+  tidy_desk_with_recovery:
+    name: Tidy desk with visual docking and recovery
+    description: >-
+      visually dock to the cabinet edge, place one object into the drawer,
+      and recover with a fresh observation before any bounded retry
+    aliases: [收拾桌面并放进抽屉, tidy desk into drawer]
+    requires_observation: true
+    max_runtime_seconds: 900
+    max_node_visits: 40
+    graph:
+      id: tidy_desk_mission
+      type: sequence
+      children:
+        - id: dock_cabinet
+          type: retry
+          max_attempts: 2
+          recovery:
+            action: observe
+            target: cabinet_workspace_check
+            timeout_seconds: 45
+          child:
+            id: approach_cabinet
+            type: action
+            action: dock_table
+            target: drawer_cabinet_edge
+            timeout_seconds: 90
+        - id: align_workspace
+          type: retry
+          max_attempts: 2
+          recovery:
+            action: observe
+            target: manipulation_workspace_check
+            timeout_seconds: 45
+          child:
+            id: align_object
+            type: action
+            action: task
+            target: align_left_gripper_to_object
+            timeout_seconds: 30
+        - id: place_object
+          type: retry
+          max_attempts: 2
+          recovery:
+            action: observe
+            target: drawer_workspace_check
+            timeout_seconds: 45
+          child:
+            id: operate_drawer
+            type: action
+            action: task
+            target: operate_drawer
+            timeout_seconds: 180

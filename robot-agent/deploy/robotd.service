@@ -1,0 +1,48 @@
+[Unit]
+Description=XLeRobot standalone task daemon
+After=network-online.target robot-watchdog.service
+Wants=network-online.target robot-watchdog.service
+
+[Service]
+Type=simple
+User=robot
+Group=robot
+SupplementaryGroups=dialout video
+WorkingDirectory=/opt/robot-agent
+EnvironmentFile=/etc/robot-agent/robot-agent.env
+Environment=ROBOT_AGENT_STATE_DIR=/var/lib/robot-agent
+Environment=ROBOT_AGENT_RUNTIME_DIR=/run/robot-agent
+ExecStart=/opt/robot-agent/.venv/bin/robotd
+ExecStop=/opt/robot-agent/.venv/bin/robotctl estop
+Restart=on-failure
+RestartSec=2
+TimeoutStopSec=8
+KillMode=control-group
+UMask=0077
+
+RuntimeDirectory=robot-agent
+RuntimeDirectoryMode=0700
+StateDirectory=robot-agent
+StateDirectoryMode=0700
+
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+LockPersonality=true
+MemoryDenyWriteExecute=false
+DevicePolicy=closed
+DeviceAllow=/dev/ttyACM0 rw
+DeviceAllow=/dev/ttyACM1 rw
+DeviceAllow=/dev/ttyACM2 rw
+DeviceAllow=/dev/ttyACM3 rw
+DeviceAllow=/dev/video0 rw
+DeviceAllow=/dev/video2 rw
+DeviceAllow=/dev/video4 rw
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,11 @@
+{
+  "schema_version": 1,
+  "provider_id": "grounded_sam2_v1",
+  "sam2_model_config": "configs/sam2.1/sam2.1_hiera_s.yaml",
+  "sam2_checkpoint_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "grounding_dino_config_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "grounding_dino_checkpoint_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "grounded_sam2_revision": "b7a9c29f196edff0eb54dbe14588d7ae5e3dde28",
+  "grounding_dino_revision": "856dde20aee659246248e20734ef9ba5214f5e44",
+  "sam2_revision": "2b90b9f5ceec907a1c18123530e92e794ad901a4"
+}

@@ -1,0 +1,18 @@
+version: 1
+approved: false
+episode_id: episode-replace-me
+max_total_bytes: 10737418240
+max_time_margin_seconds: 2.0
+artifacts:
+  - artifact_id: head_rgb
+    kind: rgb_video
+    source: /var/lib/robot-agent/capture/head.mp4
+    mime_type: video/mp4
+    captured_at_start: 100.0
+    captured_at_end: 105.0
+  - artifact_id: robot_state
+    kind: robot_state
+    source: /var/lib/robot-agent/capture/robot-state.mcap
+    mime_type: application/mcap
+    captured_at_start: 100.0
+    captured_at_end: 105.0
