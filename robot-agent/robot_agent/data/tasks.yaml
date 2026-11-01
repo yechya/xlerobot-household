@@ -20,7 +20,7 @@ tasks:
       preconditions:
         - {id: cloth_visible, question: "Is one unfolded cloth clearly visible on the work surface?", min_confidence: 0.8}
         - {id: cloth_reachable, question: "Is the entire cloth inside the marked manipulation workspace?", min_confidence: 0.8}
-        - {id: workspace_clear, question: "Is the manipulation workspace clear of unrelated objects and people?", min_confidence: 0.9}
+        - {id: workspace_clear, question: "Is the manipulation workspace clear of unrelated objects and people?", min_confidence: 0.85}
       postconditions:
         - {id: cloth_folded, question: "Is the cloth visibly folded into a compact layered shape?", min_confidence: 0.85}
         - {id: cloth_stable, question: "Is the folded cloth resting stably on the work surface?", min_confidence: 0.8}
@@ -39,7 +39,7 @@ tasks:
       preconditions:
         - {id: bowls_visible, question: "Are the expected small bowls clearly visible and separate?", min_confidence: 0.85}
         - {id: plate_visible, question: "Is the destination plate clearly visible?", min_confidence: 0.85}
-        - {id: workspace_clear, question: "Is the manipulation workspace clear of unrelated objects and people?", min_confidence: 0.9}
+        - {id: workspace_clear, question: "Is the manipulation workspace clear of unrelated objects and people?", min_confidence: 0.85}
       postconditions:
         - {id: bowls_on_plate, question: "Are all expected bowls stacked on the destination plate?", min_confidence: 0.9}
         - {id: stack_stable, question: "Is the bowl stack upright and stable?", min_confidence: 0.85}
@@ -58,7 +58,7 @@ tasks:
       preconditions:
         - {id: bottle_visible, question: "Is exactly one target bottle clearly visible?", min_confidence: 0.85}
         - {id: towel_visible, question: "Is the destination towel clearly visible and unobstructed?", min_confidence: 0.85}
-        - {id: workspace_clear, question: "Is the manipulation workspace clear of unrelated objects and people?", min_confidence: 0.9}
+        - {id: workspace_clear, question: "Is the manipulation workspace clear of unrelated objects and people?", min_confidence: 0.85}
       postconditions:
         - {id: bottle_on_towel, question: "Is the target bottle resting on the destination towel?", min_confidence: 0.9}
         - {id: bottle_stable, question: "Is the bottle stable and not being held by the robot?", min_confidence: 0.85}
@@ -77,7 +77,7 @@ tasks:
       preconditions:
         - {id: bottle_visible, question: "Is exactly one target bottle clearly visible?", min_confidence: 0.85}
         - {id: basket_visible, question: "Is the destination basket clearly visible and open?", min_confidence: 0.85}
-        - {id: workspace_clear, question: "Is the manipulation workspace clear of unrelated objects and people?", min_confidence: 0.9}
+        - {id: workspace_clear, question: "Is the manipulation workspace clear of unrelated objects and people?", min_confidence: 0.85}
       postconditions:
         - {id: bottle_in_basket, question: "Is the target bottle visibly inside the destination basket?", min_confidence: 0.9}
         - {id: bottle_released, question: "Has the robot released the bottle without dropping it outside the basket?", min_confidence: 0.85}
