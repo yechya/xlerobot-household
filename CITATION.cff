@@ -1,23 +1,40 @@
 cff-version: 1.2.0
-message: "If you use this software or its framework in academic work, please cite it."
-title: "XLeRobot Household Service Robot"
+message: "If you use this software, please cite it as below."
+title: "XLeRobot Household: Edge VLA Deployment and an Evidence-Gated Runtime for a Dual-Arm Household Robot"
 type: software
-version: 0.1.0
-date-released: 2026-10-21
+version: 1.0.0
+date-released: 2026-11-24
 license: Apache-2.0
+repository-code: "https://github.com/yechya/xlerobot-household"
 abstract: >-
-  A framework and standalone safety-gated runtime for a dual-arm, three-wheel
-  omnidirectional household service robot. It provides RGB observation
-  evidence, catalog-constrained task selection, one-time authorization,
-  bounded mobile-manipulation missions with recovery, RGB table-edge docking,
-  and Jetson TensorRT inference tooling for SmolVLA and pi0.5.
+  A dual-arm, three-wheel omnidirectional household service robot built on
+  XLeRobot that runs SmolVLA and pi0.5 locally on an NVIDIA Jetson AGX Orin
+  with three RGB cameras. The repository provides RoboHarness, an
+  evidence-gated runtime in which a vision-language model checks every skill
+  before and after execution; LeRobot patches for TensorRT hybrid inference on
+  Jetson; and the analysis scripts that recompute the reported measurements. Developed as a National
+  College Students' Innovation Training Program project at Nanjing University
+  (No. 202610284032), advised by Yuan Du.
 authors:
-  - name: "XLeRobot contributors"
+  - family-names: Ye
+    given-names: Chuyang
+    affiliation: "School of Electronic Science and Engineering, Nanjing University"
+  - family-names: Lei
+    given-names: Jixiao
+    affiliation: "School of Electronic Science and Engineering, Nanjing University"
+  - family-names: Sun
+    given-names: Yishan
+    affiliation: "School of Electronic Science and Engineering, Nanjing University"
+  - family-names: Fan
+    given-names: Yuyi
+    affiliation: "School of Electronic Science and Engineering, Nanjing University"
 keywords:
   - robotics
   - embodied-ai
   - vision-language-action
   - smolvla
+  - pi0.5
   - tensorrt
   - jetson
   - lerobot
+  - xlerobot

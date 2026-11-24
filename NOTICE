@@ -1,16 +1,16 @@
-XLeRobot Household Service Robot
-Copyright 2026 XLeRobot contributors
+XLeRobot Household
+Copyright 2026 Chuyang Ye, Jixiao Lei, Yishan Sun, Yuyi Fan
 
 This product includes software developed at Hugging Face as part of the
 LeRobot project (https://github.com/huggingface/lerobot), licensed under the
-Apache License, Version 2.0. The LeRobot-derived workspaces in this project
-contain modifications for Jetson deployment, TensorRT inference, the
-XLeRobot-style dual-arm platform, and household task integration.
+Apache License, Version 2.0. The patches in integrations/ modify LeRobot for
+Jetson deployment, TensorRT inference, the XLeRobot dual-arm platform, and
+household task integration.
 
 This product references hardware designs and simulation assets from the
 XLeRobot project by Vector-Wangel (https://github.com/Vector-Wangel/XLeRobot),
 licensed under the Apache License, Version 2.0.
 
-This product depends on SmolVLA and SmolVLM model families and may reference
-pi0/pi0.5 implementations. Their upstream licenses and model cards apply.
-No model weights are distributed by this repository unless explicitly stated.
+This product depends on the SmolVLA and SmolVLM model families and on pi0/pi0.5
+implementations. Their upstream licenses and model cards apply. No model
+weights are distributed by this repository.
