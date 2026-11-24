@@ -1,0 +1,54 @@
+[
+  {
+    "model": "SmolVLA",
+    "backend": "PyTorch",
+    "dataset": "eval_smolvla_pick_up_bottle_three_py_20s",
+    "episodes": 1,
+    "duration_s": 20.0,
+    "frames": 227,
+    "target_fps": 15,
+    "effective_hz": 11.35,
+    "fraction_of_target": 0.7567,
+    "improvement_vs_first_run_of_model": null,
+    "last_timestamp_s": 15.0667
+  },
+  {
+    "model": "SmolVLA",
+    "backend": "TensorRT FP16",
+    "dataset": "eval_smolvla_pick_up_bottle_three_trt_20s",
+    "episodes": 1,
+    "duration_s": 20.0,
+    "frames": 247,
+    "target_fps": 15,
+    "effective_hz": 12.35,
+    "fraction_of_target": 0.8233,
+    "improvement_vs_first_run_of_model": 0.0881,
+    "last_timestamp_s": 16.4
+  },
+  {
+    "model": "pi0.5",
+    "backend": "PyTorch",
+    "dataset": "eval_pi05_pytorch_60s",
+    "episodes": 1,
+    "duration_s": 60.0,
+    "frames": 614,
+    "target_fps": 30,
+    "effective_hz": 10.2333,
+    "fraction_of_target": 0.3411,
+    "improvement_vs_first_run_of_model": null,
+    "last_timestamp_s": 20.4333
+  },
+  {
+    "model": "pi0.5",
+    "backend": "TensorRT BF16",
+    "dataset": "eval_pi05_trt_60s",
+    "episodes": 1,
+    "duration_s": 60.0,
+    "frames": 701,
+    "target_fps": 30,
+    "effective_hz": 11.6833,
+    "fraction_of_target": 0.3894,
+    "improvement_vs_first_run_of_model": 0.1417,
+    "last_timestamp_s": 23.3333
+  }
+]

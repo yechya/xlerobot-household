@@ -1,0 +1,4 @@
+phase,frame_start,frame_end,change_rate_mean,amplitude_std,tracking_error_mean
+coarse (first third),0,205,0.760364,3.049904,2.585812
+transition (middle third),205,410,1.182175,3.759062,3.605308
+fine (last third),410,616,0.282526,0.864345,1.244121

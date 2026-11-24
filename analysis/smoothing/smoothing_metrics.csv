@@ -1,0 +1,7 @@
+window,source,input,frames,command_change_rate,joint_acceleration,tracking_error,command_second_diff,rrd_vs_dataset_same_shape,rrd_vs_dataset_max_abs_diff
+1,rrd,window_1.rrd,616,0.385785,0.172379,1.681146,0.133917,True,0.0
+3,rrd,window_3.rrd,553,0.265432,0.132214,1.364974,0.140533,True,0.0
+5,rrd,window_5.rrd,657,0.41573,0.210419,1.725984,0.40339,True,0.0
+1,lerobot_dataset,eval_smolvla_pick_up_bottle#episode0,616,0.385785,0.172379,1.681146,0.133917,True,0.0
+3,lerobot_dataset,eval_smolvla_pick_up_bottle#episode1,553,0.265432,0.132214,1.364974,0.140533,True,0.0
+5,lerobot_dataset,eval_smolvla_pick_up_bottle#episode2,657,0.41573,0.210419,1.725984,0.40339,True,0.0

@@ -1,0 +1,74 @@
+[
+  {
+    "window": 1,
+    "source": "rrd",
+    "input": "window_1.rrd",
+    "frames": 616,
+    "command_change_rate": 0.385785,
+    "joint_acceleration": 0.172379,
+    "tracking_error": 1.681146,
+    "command_second_diff": 0.133917,
+    "rrd_vs_dataset_same_shape": true,
+    "rrd_vs_dataset_max_abs_diff": 0.0
+  },
+  {
+    "window": 3,
+    "source": "rrd",
+    "input": "window_3.rrd",
+    "frames": 553,
+    "command_change_rate": 0.265432,
+    "joint_acceleration": 0.132214,
+    "tracking_error": 1.364974,
+    "command_second_diff": 0.140533,
+    "rrd_vs_dataset_same_shape": true,
+    "rrd_vs_dataset_max_abs_diff": 0.0
+  },
+  {
+    "window": 5,
+    "source": "rrd",
+    "input": "window_5.rrd",
+    "frames": 657,
+    "command_change_rate": 0.41573,
+    "joint_acceleration": 0.210419,
+    "tracking_error": 1.725984,
+    "command_second_diff": 0.40339,
+    "rrd_vs_dataset_same_shape": true,
+    "rrd_vs_dataset_max_abs_diff": 0.0
+  },
+  {
+    "window": 1,
+    "source": "lerobot_dataset",
+    "input": "eval_smolvla_pick_up_bottle#episode0",
+    "frames": 616,
+    "command_change_rate": 0.385785,
+    "joint_acceleration": 0.172379,
+    "tracking_error": 1.681146,
+    "command_second_diff": 0.133917,
+    "rrd_vs_dataset_same_shape": true,
+    "rrd_vs_dataset_max_abs_diff": 0.0
+  },
+  {
+    "window": 3,
+    "source": "lerobot_dataset",
+    "input": "eval_smolvla_pick_up_bottle#episode1",
+    "frames": 553,
+    "command_change_rate": 0.265432,
+    "joint_acceleration": 0.132214,
+    "tracking_error": 1.364974,
+    "command_second_diff": 0.140533,
+    "rrd_vs_dataset_same_shape": true,
+    "rrd_vs_dataset_max_abs_diff": 0.0
+  },
+  {
+    "window": 5,
+    "source": "lerobot_dataset",
+    "input": "eval_smolvla_pick_up_bottle#episode2",
+    "frames": 657,
+    "command_change_rate": 0.41573,
+    "joint_acceleration": 0.210419,
+    "tracking_error": 1.725984,
+    "command_second_diff": 0.40339,
+    "rrd_vs_dataset_same_shape": true,
+    "rrd_vs_dataset_max_abs_diff": 0.0
+  }
+]

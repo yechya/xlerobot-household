@@ -1,0 +1,106 @@
+{
+  "dataset": "eval_smolvla_pick_up_bottle",
+  "dataset_fps": 30,
+  "episodes": {
+    "0": 616,
+    "1": 553,
+    "2": 657
+  },
+  "total_frames": 1826,
+  "data_checks": {
+    "value_ranges": {
+      "command_joints": [
+        -100.326256,
+        100.339149
+      ],
+      "measured_joints": [
+        -99.212944,
+        98.926651
+      ],
+      "command_grippers": [
+        -0.046146,
+        52.510387
+      ],
+      "measured_grippers": [
+        2.129032,
+        52.242577
+      ]
+    }
+  },
+  "correlation_episode": 0,
+  "correlation": {
+    "frames": 616,
+    "r_error_vs_change_rate": 0.941827,
+    "r_error_vs_second_diff": 0.472865,
+    "r_error_vs_amplitude": 0.008665,
+    "stable_vs_abrupt": {
+      "threshold": 0.5,
+      "stable_frames": 312,
+      "stable_error_mean": 0.958414,
+      "stable_error_max": 3.741621,
+      "abrupt_frames": 303,
+      "abrupt_error_mean": 4.041535,
+      "abrupt_error_max": 10.637746
+    }
+  },
+  "phases": [
+    {
+      "phase": "coarse (first third)",
+      "frame_start": 0,
+      "frame_end": 205,
+      "change_rate_mean": 0.760364,
+      "amplitude_std": 3.049904,
+      "tracking_error_mean": 2.585812
+    },
+    {
+      "phase": "transition (middle third)",
+      "frame_start": 205,
+      "frame_end": 410,
+      "change_rate_mean": 1.182175,
+      "amplitude_std": 3.759062,
+      "tracking_error_mean": 3.605308
+    },
+    {
+      "phase": "fine (last third)",
+      "frame_start": 410,
+      "frame_end": 616,
+      "change_rate_mean": 0.282526,
+      "amplitude_std": 0.864345,
+      "tracking_error_mean": 1.244121
+    }
+  ],
+  "chunk_size": 50,
+  "edge_frames": 10,
+  "chunk_edges": {
+    "0": {
+      "complete_chunks": 12,
+      "first10_mean": 1.511172,
+      "last10_mean": 2.47657,
+      "last_vs_first_increase": 0.638841
+    },
+    "1": {
+      "complete_chunks": 11,
+      "first10_mean": 1.207056,
+      "last10_mean": 2.592261,
+      "last_vs_first_increase": 1.147589
+    },
+    "2": {
+      "complete_chunks": 13,
+      "first10_mean": 3.435815,
+      "last10_mean": 9.366456,
+      "last_vs_first_increase": 1.726124
+    }
+  },
+  "gripper": {
+    "joint": "right_gripper",
+    "threshold": 20.0,
+    "frames": 1826,
+    "fine_frames": 1498,
+    "fine_fraction": 0.820372,
+    "fine_error_mean": 2.899593,
+    "fine_error_max": 40.609431,
+    "coarse_frames": 328,
+    "coarse_error_mean": 5.879208,
+    "coarse_error_max": 36.489944
+  }
+}

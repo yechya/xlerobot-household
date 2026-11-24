@@ -1,0 +1,23 @@
+{
+  "frames": 20,
+  "py_time_ms_mean": 836.4729658060241,
+  "trt_time_ms_mean": 333.9245407783892,
+  "speedup": 2.5049760160070234,
+  "trt_time_ms_frame0": 453.19641602691263,
+  "trt_time_ms_mean_excl_frame0": 327.64707366004586,
+  "py_time_ms_mean_excl_frame0": 835.7994010071516,
+  "cosine_similarity_mean": 0.9999998922084403,
+  "cosine_similarity_worst": 0.9999987983053225,
+  "relative_l2_mean": 0.0004412931827299809,
+  "relative_l2_worst": 0.0015330891768878666,
+  "mean_abs_diff_mean": 0.016911279410123825,
+  "max_abs_diff_worst": 0.3160724639892578,
+  "matches_stored_summary": true,
+  "config": {
+    "policy_path": "outputs/train/smolvla_pick_up_bottle/checkpoints/last/pretrained_model",
+    "engine_path": "outputs/trt_engines/smolvla_pick_up_bottle.engine",
+    "dataset_path": "eval_smolvla_pick_up_bottle_test_py_1",
+    "task": "put the bottle into the basket in front of you",
+    "num_frames": 20
+  }
+}

@@ -1,0 +1,5 @@
+model,backend,dataset,episodes,duration_s,frames,target_fps,effective_hz,fraction_of_target,improvement_vs_first_run_of_model,last_timestamp_s
+SmolVLA,PyTorch,eval_smolvla_pick_up_bottle_three_py_20s,1,20.0,227,15,11.35,0.7567,,15.0667
+SmolVLA,TensorRT FP16,eval_smolvla_pick_up_bottle_three_trt_20s,1,20.0,247,15,12.35,0.8233,0.0881,16.4
+pi0.5,PyTorch,eval_pi05_pytorch_60s,1,60.0,614,30,10.2333,0.3411,,20.4333
+pi0.5,TensorRT BF16,eval_pi05_trt_60s,1,60.0,701,30,11.6833,0.3894,0.1417,23.3333
