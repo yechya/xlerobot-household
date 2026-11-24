@@ -12,20 +12,20 @@
 | 语义桌沿对接逻辑 | 真实底盘、相机、VLM 端点与标定 |
 | 4 项家务技能 | 对应权重、数据集、机械臂标定、相机安装 |
 | TensorRT 加速 | 匹配 JetPack/TensorRT 的 Jetson、ONNX、engine 构建环境 |
-| 论文/视频中的成功率 | 原始 episode、benchmark 报告与失败样本 |
+| 实机任务复测 | 实验台、任务物品、标定与对应权重 |
 
 ## 1. 框架安装与验证
 
 ```bash
-git clone <repository-url>
-cd <repository>/robot-agent
+git clone https://github.com/yechya/xlerobot-household.git
+cd xlerobot-household/robot-agent
 python -m venv .venv
 source .venv/bin/activate
 python -m pip install -e ".[dev]"
 pytest -q
 ```
 
-预期：`362 passed`（版本更新后以实际输出为准）。再在仓库根目录检查文档链接：
+预期：`367 passed`（版本更新后以实际输出为准）。再在仓库根目录检查文档链接：
 
 ```bash
 python scripts/check_markdown_links.py
@@ -93,7 +93,6 @@ robotctl execute dock_table --real
   π0.5 已整理为 `integrations/lerobot_pi05/` 补丁（基线 `473f1bd0e`）。两者需应用到独立 checkout。
 - `XLeRobot` 与训练数据、checkpoint、engine、标定缓存仍需单独获取。
 - 没有真实硬件的自动化 HIL；CI 只覆盖主机侧逻辑。
-- 尚未发布按任务统计的成功率与置信区间；在补齐前，不应引用具体性能数字。
 
 ## 7. 复现记录模板
 
